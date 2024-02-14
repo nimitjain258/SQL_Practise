@@ -4,11 +4,15 @@ CREATE DATABASE SQL_Project;
 -- Start using the database sql_project
 USE SQL_Project;
 
+DROP TABLE country;
+DROP TABLE countries;
+SELECT COUNT(*) FROM country;
+
 -- create table country with primary key index_col
 CREATE TABLE country (
 	index_col INT PRIMARY KEY AUTO_INCREMENT,
-	country_name VARCHAR(100),
-	country_code_2 VARCHAR(100),
+	country_name VARCHAR(100) UNIQUE,
+	country_code_2 VARCHAR(100) UNIQUE,
 	country_code_3 VARCHAR(100),
 	region VARCHAR(100),
 	sub_region VARCHAR(100),
@@ -19,7 +23,7 @@ CREATE TABLE country (
     ALTER TABLE country
     RENAME TO countries;
         
-	SELECT * FROM countries;
+	SELECT COUNT(*) FROM countries;
     -- Format country_name column
     UPDATE countries
     SET country_name = REPLACE(country_name, '!', ''),
@@ -109,3 +113,11 @@ CREATE TABLE country (
     UPDATE countries
     SET intermediate_region = LOWER(intermediate_region);
     
+-- adding column created-on
+ALTER TABLE countries
+ADD created_on DATE;
+
+UPDATE countries
+SET created_on = CURDATE();
+
+SELECT COUNT(*) FROM countries;
